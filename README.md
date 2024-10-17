@@ -16,7 +16,11 @@ A [Nest](https://github.com/nestjs/nest)+[Fastify](https://github.com/fastify/fa
 This template contains common combinations as follows:
 
 - [Nest](https://github.com/nestjs/nest) - Core framework
+  - [Config](https://github.com/nestjs/config) - Configuration
+  - [Winston](https://github.com/gremo/nest-winston) - Logger
 - [Fastify](https://github.com/fastify/fastify) - HTTP provider
+  - [Cookie](https://github.com/fastify/fastify-cookie) - Cookie parser
+  - [Helmet](https://github.com/fastify/fastify-helmet) - Security headers
 - [Typescript](https://github.com/microsoft/TypeScript) - Language
 - [Prettier](https://prettier.io/) - Code formatter
 - [ESLint](https://eslint.org/) - Code linter
@@ -24,6 +28,16 @@ This template contains common combinations as follows:
 ## Quick Start
 
 There's nothing here :D
+
+## Environment Variables
+
+| Name         | Description                                              | Default |
+|--------------|----------------------------------------------------------|---------|
+| PORT         | Server listen port                                       | 3000    |
+| DEBUG_MODE   | Debug mode, some features only work if this is turned on | True    |
+| CONSOLE_LOG  | Enable console log output(Not recommended)               | False   |
+| COOKIE_TOKEN | Cookie Encryption and decryption keys                    | APP     |
+
 
 ## License
 

@@ -5,7 +5,6 @@
   ],
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
-    "project": "tsconfig.json",
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "simple-import-sort"],

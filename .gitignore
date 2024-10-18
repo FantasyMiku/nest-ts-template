@@ -31,6 +31,15 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Yarn Package Manager
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # dotenv environment variable files
 .env
 .env.development.local

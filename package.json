@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A NestJS+Fastify+TypeScript general template",
   "author": "悠静萝莉 <i@mikuhl.cn>",
-  "private": false,
   "license": "MIT",
   "scripts": {
     "build": "nest build",

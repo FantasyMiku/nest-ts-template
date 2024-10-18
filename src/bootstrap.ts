@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import type { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
 
 import { HttpExceptionFilter } from '@/app/http-exception.filter';
@@ -27,6 +28,17 @@ export async function Bootstrap() {
     },
   );
   const config = app.get(ConfigService<EnvironmentVariables>);
+
+  // Swagger Document
+  if (config.get('DEBUG_MODE') === 'true') {
+    const documentConfig = new DocumentBuilder()
+      .setTitle(config.get('SWAGGER_TITLE', 'Unknown'))
+      .setDescription(config.get('SWAGGER_DESCRIPTION', 'Unknown'))
+      .setVersion(config.get('SWAGGER_VERSION', '1.0'))
+      .build();
+    const document = SwaggerModule.createDocument(app, documentConfig);
+    SwaggerModule.setup('doc', app, document);
+  }
 
   // Cookie parser
   await app.register(fastifyCookie, {
@@ -61,5 +73,5 @@ export async function Bootstrap() {
     defaultVersion: '1',
   });
 
-  await app.listen(config.get('PORT', 3000), '0.0.0.0');
+  await app.listen({ port: config.get('PORT', 3000), host: '0.0.0.0' });
 }

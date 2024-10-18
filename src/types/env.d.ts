@@ -8,4 +8,11 @@ interface EnvironmentVariables {
 
   // Cookie token
   COOKIE_TOKEN: string;
+
+  // Swagger document title
+  SWAGGER_TITLE: string;
+  // Swagger document description
+  SWAGGER_DESCRIPTION: string;
+  // Swagger document version
+  SWAGGER_VERSION: string;
 }

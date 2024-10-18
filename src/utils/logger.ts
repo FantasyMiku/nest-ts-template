@@ -12,7 +12,7 @@ const loggerFormat = printf((info) => {
   switch (level) {
     case 'error':
       template += `${stack.map((msg: string) => {
-        return msg.replace('Error: ', '');
+        return msg?.replace('Error: ', '');
       })}\n`;
       break;
     case 'verbose':

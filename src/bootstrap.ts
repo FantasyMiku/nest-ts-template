@@ -35,6 +35,7 @@ export async function Bootstrap() {
       .setTitle(config.get('SWAGGER_TITLE', 'Unknown'))
       .setDescription(config.get('SWAGGER_DESCRIPTION', 'Unknown'))
       .setVersion(config.get('SWAGGER_VERSION', '1.0'))
+      .addServer('/v1')
       .build();
     const document = SwaggerModule.createDocument(app, documentConfig);
     SwaggerModule.setup('doc', app, document);

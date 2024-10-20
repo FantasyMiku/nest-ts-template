@@ -49,7 +49,7 @@ export class TransformInterceptor<T extends ResponseBody<object>>
         // If it is a file stream, return it
         if (Data instanceof StreamableFile) return Data;
 
-        Result.data = Data;
+        Result.data = Data ?? {};
         return Result;
       }),
     );

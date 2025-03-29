@@ -9,7 +9,13 @@ import { AppModule } from './app/app.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [join(__dirname, './config/.env')],
+      envFilePath: [
+        join(__dirname, './config/.env'),
+        join(
+          __dirname,
+          `./config/.env.${process.env.NODE_ENV ?? 'development'}`,
+        ),
+      ],
     }),
     AppModule,
   ],

@@ -41,7 +41,6 @@ lerna-debug.log*
 !.yarn/versions
 
 # dotenv environment variable files
-.env
 .env.development.local
 .env.test.local
 .env.production.local

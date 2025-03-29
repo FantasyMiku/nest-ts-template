@@ -61,8 +61,7 @@ export function createLogger() {
   // If the CONSOLE_LOG is enabled, the log will be output to the console
   if (process.env.CONSOLE_LOG === 'true') {
     console.warn(
-      '%cDebug mode enabled, which may cause serious performance losses. Please disable it!',
-      'color: red;',
+      '\x1b[31mDebug mode enabled, which may cause serious performance losses. Please disable it! \x1b[0m',
     );
     loggerTransports.push(
       new transports.Console({

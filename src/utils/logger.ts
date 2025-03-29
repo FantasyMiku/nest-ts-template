@@ -2,28 +2,31 @@ import { utilities } from 'nest-winston';
 import { format, transports } from 'winston';
 import * as winston from 'winston';
 
+import type { LoggerInfo } from '@/types/logger';
+
 const { combine, timestamp, align, printf } = format;
 
-const loggerFormat = printf((info) => {
-  const { level, timestamp, message, stack } = info;
-  const logLevel = level.charAt(0).toUpperCase() + level.slice(1);
-  let template = `[${logLevel}] ${[timestamp]}: `;
+const loggerFormat = printf(
+  ({ level, timestamp, message, stack }: LoggerInfo) => {
+    const logLevel = level.charAt(0).toUpperCase() + level.slice(1);
+    let template = `[${logLevel}] ${[timestamp]}: `;
 
-  switch (level) {
-    case 'error':
-      template += `${stack.map((msg: string) => {
-        return msg?.replace('Error: ', '');
-      })}\n`;
-      break;
-    case 'verbose':
-      template += `\n${message}`;
-      break;
-    default:
-      template += `${message}`;
-  }
+    switch (level) {
+      case 'error':
+        template += `${stack!.map((msg: string) => {
+          return msg?.replace('Error: ', '');
+        })}\n`;
+        break;
+      case 'verbose':
+        template += `\n${message}`;
+        break;
+      default:
+        template += `${message}`;
+    }
 
-  return template;
-});
+    return template;
+  },
+);
 
 // Logger configuration
 const loggerOptions = {
@@ -58,11 +61,12 @@ export function createLogger() {
   // If the CONSOLE_LOG is enabled, the log will be output to the console
   if (process.env.CONSOLE_LOG === 'true') {
     console.warn(
-      'Debug mode enabled, which may cause serious performance losses. Please disable it!',
+      '%cDebug mode enabled, which may cause serious performance losses. Please disable it!',
+      'color: red;',
     );
     loggerTransports.push(
       new transports.Console({
-        level: 'info',
+        level: 'warn',
         format: combine(timestamp(), utilities.format.nestLike()),
       }),
     );

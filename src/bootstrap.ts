@@ -29,21 +29,9 @@ export async function Bootstrap() {
   );
   const config = app.get(ConfigService<EnvironmentVariables>);
 
-  // Swagger Document
-  if (config.get('DEBUG_MODE') === 'true') {
-    const documentConfig = new DocumentBuilder()
-      .setTitle(config.get('SWAGGER_TITLE', 'Unknown'))
-      .setDescription(config.get('SWAGGER_DESCRIPTION', 'Unknown'))
-      .setVersion(config.get('SWAGGER_VERSION', '1.0'))
-      .addServer('/v1')
-      .build();
-    const document = SwaggerModule.createDocument(app, documentConfig);
-    SwaggerModule.setup('doc', app, document);
-  }
-
   // Cookie parser
   await app.register(fastifyCookie, {
-    secret: config.get('COOKIE_TOKEN', null),
+    secret: config.get<string | undefined>('COOKIE_TOKEN', undefined),
   });
   // CORS
   app.enableCors({ credentials: true, origin: true });
@@ -74,5 +62,20 @@ export async function Bootstrap() {
     defaultVersion: '1',
   });
 
-  await app.listen({ port: config.get('PORT', 3000), host: '0.0.0.0' });
+  // Swagger Document - Wait for the app to be initialized
+  if (config.get('DEBUG_MODE') === 'true') {
+    const documentConfig = new DocumentBuilder()
+      .setTitle(config.get('SWAGGER_TITLE', 'Unknown'))
+      .setDescription(config.get('SWAGGER_DESCRIPTION', 'Unknown'))
+      .setVersion(config.get('SWAGGER_VERSION', '1.0'))
+      .addServer('/v1')
+      .build();
+    const document = SwaggerModule.createDocument(app, documentConfig);
+    SwaggerModule.setup('doc', app, document);
+  }
+
+  await app.listen({
+    port: parseInt(config.get<string>('PORT', '3000')),
+    host: '0.0.0.0',
+  });
 }

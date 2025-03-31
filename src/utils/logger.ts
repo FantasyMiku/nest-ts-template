@@ -65,7 +65,7 @@ export function createLogger() {
     );
     loggerTransports.push(
       new transports.Console({
-        level: 'warn',
+        level: 'info',
         format: combine(timestamp(), utilities.format.nestLike()),
       }),
     );
